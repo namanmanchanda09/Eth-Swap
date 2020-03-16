@@ -1,5 +1,5 @@
-// pragma solidity >=0.4.21 <0.7.0;
-pragma solidity ^0.5.1;
+pragma solidity >=0.4.21 <0.7.0;
+
 
 contract DappToken{
     uint256 public totalSupply; //Total Supply of Tokens
