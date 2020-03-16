@@ -11,6 +11,7 @@ contract('DappToken',(accounts)=>{
     })
 
     describe('deployment',async()=>{
+        //Checking the name of the Token
         it('initialises the contract with correct values',async()=>{
             const name = await dappToken.name();
             assert.equal(name,'DAppToken')
