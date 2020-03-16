@@ -2,9 +2,9 @@ pragma solidity >=0.4.21 <0.7.0;
 
 
 contract DappToken{
-    string public name = 'DAppToken';
-    string public symbol = 'DAPP';
-    string public standard = 'DApp Token v1.0';
+    string public name = 'DAppToken'; //Token Name
+    string public symbol = 'DAPP'; //Token Symbol
+    string public standard = 'DApp Token v1.0'; //Token Symbol ~ Not a ERC20 Standard
     uint256 public totalSupply; //Total Supply of Tokens
     mapping(address=>uint256) public balanceOf; //Mapping of Tokens and Token holders addresses
 
