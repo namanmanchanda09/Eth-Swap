@@ -24,7 +24,7 @@ contract('DappToken',(accounts)=>{
             assert.equal(symbol,'DAPP')
         })
 
-        //Checking the standard of the Token
+        //Checking the standard of the Token ~ not a part of ERC20 Token
         it('initialises the contract with correct values',async()=>{
             const standard = await dappToken.standard();
             assert.equal(standard,'DApp Token v1.0')
