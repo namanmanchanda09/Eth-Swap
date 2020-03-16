@@ -2,6 +2,7 @@ pragma solidity >=0.4.21 <0.7.0;
 
 
 contract DappToken{
+    string public name = 'DAppToken';
     uint256 public totalSupply; //Total Supply of Tokens
     mapping(address=>uint256) public balanceOf; //Mapping of Tokens and Token holders addresses
 
@@ -11,6 +12,8 @@ contract DappToken{
         totalSupply = _initialSupply;
     }
 }
+
+
 
 
 

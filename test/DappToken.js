@@ -11,8 +11,12 @@ contract('DappToken',(accounts)=>{
     })
 
     describe('deployment',async()=>{
+        it('initialises the contract with correct values',async()=>{
+            const name = await dappToken.name();
+            assert.equal(name,'DAppToken')
+        })
         //Checking the total Supply of Tokens
-        it('sets the total supply after deployment',async()=>{
+        it('allocates the total supply after deployment',async()=>{
             const totalSupply = await dappToken.totalSupply()
             assert.equal(totalSupply.toNumber(),1000000);
         })
