@@ -24,6 +24,12 @@ contract('DappToken',(accounts)=>{
             assert.equal(symbol,'DAPP')
         })
 
+        //Checking the standard of the Token
+        it('initialises the contract with correct values',async()=>{
+            const standard = await dappToken.standard();
+            assert.equal(standard,'DApp Token v1.0')
+        })
+
         //Checking the total Supply of Tokens
         it('allocates the total supply after deployment',async()=>{
             const totalSupply = await dappToken.totalSupply()
