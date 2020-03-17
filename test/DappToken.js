@@ -26,13 +26,18 @@ contract('DappToken',(accounts)=>{
             assert.equal(adminBalance.toNumber(),1000000)
         })
 
-        //Checking if the msg.sender contains more tokens than he is transferring
+        //Tests for the Transfer function ~ transfer of tokens one address to another
         it('transfers token ownership',async()=>{
-            await dappToken.transfer.call(accounts[1],999999999999).should.be.rejected;
-            await dappToken.transfer(accounts[1],250000,{from:accounts[0]});
+            let returnValue = await dappToken.transfer.call(accounts[1],999999999999).should.be.rejected;
+            let result = await dappToken.transfer(accounts[1],250000,{from:accounts[0]});
             let balanceOfReceiver = await dappToken.balanceOf(accounts[1]);
-            assert(balanceOfReceiver.toNumber(),250000);
-            // console.log(balanceOfReceiver);
+            const event = result.logs[0].args;
+            assert.equal(balanceOfReceiver.toNumber(),250000);
+            assert.equal(event._from,accounts[0]);
+            assert.equal(event._to,accounts[1]);
+            assert.equal(event._value,250000);
+            assert(returnValue,true);
+            
         })
 
 
