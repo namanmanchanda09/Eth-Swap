@@ -14,16 +14,11 @@ contract DappToken{
         totalSupply = _initialSupply;
     }
 
-    function transfer(address _to, uint256 _value) public view returns(bool success){
+    function transfer(address _to, uint256 _value) public returns(bool success){
         require(balanceOf[msg.sender] >= _value,'Total Supply must always be greater');
+        balanceOf[msg.sender] -= _value;
+        balanceOf[_to] += _value;
         return true;
-
 
     }
 }
-
-
-
-
-
-

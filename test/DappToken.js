@@ -29,10 +29,14 @@ contract('DappToken',(accounts)=>{
         //Checking if the msg.sender contains more tokens than he is transferring
         it('transfers token ownership',async()=>{
             await dappToken.transfer.call(accounts[1],999999999999).should.be.rejected;
-
+            await dappToken.transfer(accounts[1],250000,{from:accounts[0]});
+            let balanceOfReceiver = await dappToken.balanceOf(accounts[1]);
+            assert(balanceOfReceiver.toNumber(),250000);
+            // console.log(balanceOfReceiver);
         })
 
 
     })
 })
+
 
