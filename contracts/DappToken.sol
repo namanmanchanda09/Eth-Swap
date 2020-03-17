@@ -29,5 +29,8 @@ contract DappToken{
         emit Transfer(msg.sender,_to,_value); //Event emitting
         return true;
     }
+
+    //Delegated Transfers
 }
+
 
