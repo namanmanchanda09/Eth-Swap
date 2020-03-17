@@ -41,10 +41,11 @@ contract('DappToken',(accounts)=>{
             const adminBalance = await dappToken.balanceOf(accounts[0]);
             assert.equal(adminBalance.toNumber(),1000000)
         })
+
+        //Checking if the msg.sender contains more tokens than he is transferring
+        it('transfers token ownership',async()=>{
+            await dappToken.transfer.call(accounts[1],999999999999).should.be.rejected;
+        })
     })
 })
-
-
-
-
 
