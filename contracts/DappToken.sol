@@ -8,6 +8,7 @@ contract DappToken{
     uint256 public totalSupply; //Total Supply of Tokens
     mapping(address=>uint256) public balanceOf; //Mapping of Tokens and Token holders addresses
 
+    //Event Declaration for Transfer function
     event Transfer(
         address indexed _from,
         address indexed _to,
@@ -25,8 +26,8 @@ contract DappToken{
         require(balanceOf[msg.sender] >= _value,'Total Supply must always be greater');
         balanceOf[msg.sender] -= _value;
         balanceOf[_to] += _value;
-        emit Transfer(msg.sender,_to,_value);
+        emit Transfer(msg.sender,_to,_value); //Event emitting
         return true;
-
     }
 }
+

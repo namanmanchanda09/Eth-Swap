@@ -31,6 +31,7 @@ contract('DappToken',(accounts)=>{
             let returnValue = await dappToken.transfer.call(accounts[1],999999999999).should.be.rejected;
             let result = await dappToken.transfer(accounts[1],250000,{from:accounts[0]});
             let balanceOfReceiver = await dappToken.balanceOf(accounts[1]);
+            //Event
             const event = result.logs[0].args;
             assert.equal(balanceOfReceiver.toNumber(),250000);
             assert.equal(event._from,accounts[0]);
