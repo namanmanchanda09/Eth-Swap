@@ -21,8 +21,16 @@ contract EthSwap {
         require(token.balanceOf(address(this))>=tokenAmount,'Exchange must have enough tokens');
         token.transfer(msg.sender,tokenAmount);
         emit TokenPurchased(msg.sender,address(token),tokenAmount,rate);
-        }
+    }
+
+    function sellTokens(uint _amount) public{
+        uint etherAmount = _amount / rate;
+        token.transferFrom(msg.sender, address(this), _amount);
+        msg.sender.transfer(etherAmount);
+    }
 }
+
+
 
 
 
