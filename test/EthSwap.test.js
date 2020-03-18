@@ -6,10 +6,10 @@ require('chai')
     .should()
 
 contract('EthSwap',(accounts)=>{
-
+    let token, ethSwap;
     before(async()=>{
-        let token = await Token.new();
-        let ethSwap = await EthSwap.new();
+        token = await Token.new();
+        ethSwap = await EthSwap.new();
         await token.transfer(ethSwap.address,'1000000000000000000000000');
     })
     //Testing Token Deployment
@@ -32,3 +32,5 @@ contract('EthSwap',(accounts)=>{
         })
     })
 })
+
+
