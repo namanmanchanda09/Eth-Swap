@@ -1,2 +1,2 @@
-# Token Sale
-This is a ERC20 token implementation with ICO.
+# Eth Swap
+This is a cryptocurrency Exchange on Ethereum.
