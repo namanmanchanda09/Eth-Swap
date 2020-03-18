@@ -62,6 +62,20 @@ contract('EthSwap',([deployer,investor])=>{
 
         })
     })
+
+    describe('sellTokens()',async()=>{
+        let result;
+        before(async()=>{
+
+
+        })
+
+        it('Allows users to instantly purchase tokens from ethSwap',async()=>{
+
+
+        })
+    })
+
 })
 
 
