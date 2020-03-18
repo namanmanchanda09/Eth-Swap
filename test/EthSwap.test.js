@@ -53,12 +53,16 @@ contract('EthSwap',([deployer,investor])=>{
             //Check ethSwap ether balance after transaction
             ethSwapBalance = await web3.eth.getBalance(ethSwap.address);
             assert.equal(ethSwapBalance.toString(),web3.utils.toWei('1','ether'));
+            //Checking the event
+            const event = result.logs[0].args;
+            assert.equal(event.account,investor);
+            assert.equal(event.token,token.address);
+            assert.equal(event.amount.toString(),tokens('100').toString());
+            assert.equal(event.rate.toString(),'100');
+
         })
     })
 })
-
-
-
 
 
 
