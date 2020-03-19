@@ -32,7 +32,9 @@ contract EthSwap {
     }
 
     function sellTokens(uint _amount) public{
+        require(token.balanceOf(msg.sender) >= _amount);
         uint etherAmount = _amount / rate;
+        require(address(this).balance>=etherAmount);
         token.transferFrom(msg.sender, address(this), _amount);
         msg.sender.transfer(etherAmount);
         emit TokensSold(msg.sender,address(token),_amount,rate);

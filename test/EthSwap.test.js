@@ -78,20 +78,24 @@ contract('EthSwap',([deployer,investor])=>{
             assert.equal(investorBalance.toString(),tokens('0'))
             let ethSwapBalance = await token.balanceOf(ethSwap.address);
             assert.equal(ethSwapBalance.toString(),tokens('1000000'));
-            ethSwalBalance = await web3.eth.getBalance(ethSwap.address);
-            assert.equal(ethSwalBalance.toString(),web3.utils.toWei('0','ether'))
+            ethSwapBalance = await web3.eth.getBalance(ethSwap.address);
+            assert.equal(ethSwapBalance.toString(),web3.utils.toWei('0','ether'))
             //Check logs to ensure event was emitted with correct data
             const event = result.logs[0].args;
             assert.equal(event.account,investor);
             assert.equal(event.token,token.address);
             assert.equal(event.amount.toString(),tokens('100').toString());
             assert.equal(event.rate.toString(),'100');
-            
 
-        })
+            //Failure : investor can't sell more tokens than they have
+            await ethSwap.sellTokens(tokens('500'),{from:investor}).should.be.rejected;
+
+
+        })  
     })
 
 })
+
 
 
 
