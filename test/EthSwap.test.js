@@ -74,8 +74,10 @@ contract('EthSwap',([deployer,investor])=>{
         })
 
         it('Allows users to instantly purchase tokens from ethSwap',async()=>{
+            //Check investor token balance after purchase
             let investorBalance = await token.balanceOf(investor);
             assert.equal(investorBalance.toString(),tokens('0'))
+            //Check ethSwap balance after purchase
             let ethSwapBalance = await token.balanceOf(ethSwap.address);
             assert.equal(ethSwapBalance.toString(),tokens('1000000'));
             ethSwapBalance = await web3.eth.getBalance(ethSwap.address);
