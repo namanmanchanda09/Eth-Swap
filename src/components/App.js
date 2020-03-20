@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
-
+import Navbar from './Navbar'
 import './App.css';
 
 class App extends Component {
@@ -12,9 +12,16 @@ class App extends Component {
 
   async loadBlockchainData(){
     const web3 = window.web3;
+    //Getting the account connected to Metamask
     const accounts = await web3.eth.getAccounts();
+    //Storing the connected account to MetaMask
     this.setState({account:accounts[0]});
     console.log(this.state.account);
+    //Getting the balance of the connected account
+    const ethBalance = await web3.eth.getBalance(this.state.account);
+    //Storing the balance as a state
+    this.setState({ethBalance})
+    console.log(this.state.ethBalance)
 
   }
   async loadWeb3() {
@@ -34,33 +41,20 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      account : ''
+      account : '',
+      ethBalance:0
     }
   }
 
   render() {
     return (
       <div>
-        <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-          <a
-            className="navbar-brand col-sm-3 col-md-2 mr-0"
-            href="https://twitter.com/NamanManchanda2"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Eth-Swap
-          </a>
-        </nav>
+        <Navbar />
         <div className="container-fluid mt-5">
           <div className="row">
             <main role="main" className="col-lg-12 d-flex text-center">
               <div className="content mr-auto ml-auto">
-
-
-            
                 <h1>Hello World!</h1>
-
-
               </div>
             </main>
           </div>
