@@ -25,7 +25,12 @@ class App extends Component {
     //Storing the balance as a state
     this.setState({ethBalance})
     console.log(this.state.ethBalance)
-
+    const abi = Token.abi;
+    const networkId = await web3.eth.net.getId();
+    const networkData=Token.networks[networkId];
+    const address = networkData.address
+    const token = new web3.eth.Contract(abi,address);
+    console.log(token);
   }
   async loadWeb3() {
     //Connecting app with the blockchain
