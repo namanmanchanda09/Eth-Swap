@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
 import Token from '../abis/Token.json'
-// import EthSwap from '../abis/EthSwap.json'
+import EthSwap from '../abis/EthSwap.json'
 import Navbar from './Navbar'
 import './App.css';
 
@@ -13,31 +13,37 @@ class App extends Component {
     await this.loadBlockchainData();
   }
 
-  async loadBlockchainData(){
-    const web3 = window.web3;
-    //Getting the account connected to Metamask
-    const accounts = await web3.eth.getAccounts();
-    //Storing the connected account to MetaMask
-    this.setState({account:accounts[0]});
-    console.log(this.state.account);
-    //Getting the balance of the connected account
-    const ethBalance = await web3.eth.getBalance(this.state.account);
-    //Storing the balance as a state
-    this.setState({ethBalance})
-    console.log(this.state.ethBalance)
-    const networkId = await web3.eth.net.getId();
-    const tokenData=Token.networks[networkId];
-    
-    if(tokenData){
-      const token = new web3.eth.Contract(Token.abi,tokenData.address);
-      this.setState({token})
-      console.log(this.state.token);
+  async loadBlockchainData() {
+    const web3 = window.web3
+
+    const accounts = await web3.eth.getAccounts()
+    this.setState({ account: accounts[0] })
+
+    const ethBalance = await web3.eth.getBalance(this.state.account)
+    this.setState({ ethBalance })
+
+    // Load Token
+    const networkId =  await web3.eth.net.getId()
+    const tokenData = Token.networks[networkId]
+    if(tokenData) {
+      const token = new web3.eth.Contract(Token.abi, tokenData.address)
+      this.setState({ token })
       let tokenBalance = await token.methods.balanceOf(this.state.account).call()
-      this.setState({tokenBalance: tokenBalance.toString()})
-      console.log("tokenBalance", tokenBalance.toString());
+      this.setState({ tokenBalance: tokenBalance.toString() })
     } else {
-      window.alert('Token Contract not deployed to blockchain');
+      window.alert('Token contract not deployed to detected network.')
     }
+
+    // Load EthSwap
+    const ethSwapData = EthSwap.networks[networkId]
+    if(ethSwapData) {
+      const ethSwap = new web3.eth.Contract(EthSwap.abi, ethSwapData.address)
+      this.setState({ ethSwap })
+    } else {
+      window.alert('EthSwap contract not deployed to detected network.')
+    }
+
+    this.setState({ loading: false })
   }
 
 
@@ -58,13 +64,15 @@ class App extends Component {
     }
   }
 
-  constructor(props){
-    super(props);
+  constructor(props) {
+    super(props)
     this.state = {
-      account : '',
-      token:{},
-      tokenBalance:'0',
-      ethBalance:'0' 
+      account: '',
+      token: {},
+      ethSwap: {},
+      ethBalance: '0',
+      tokenBalance: '0',
+      loading: true
     }
   }
 
