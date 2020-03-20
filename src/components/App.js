@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
 import Token from '../abis/Token.json'
-import EthSwap from '../abis/EthSwap.json'
+// import EthSwap from '../abis/EthSwap.json'
 import Navbar from './Navbar'
 import './App.css';
 
@@ -30,14 +30,20 @@ class App extends Component {
     
     if(tokenData){
       const token = new web3.eth.Contract(Token.abi,tokenData.address);
-      console.log(token);
+      this.setState({token})
+      console.log(this.state.token);
+      let tokenBalance = await token.methods.balanceOf(this.state.account).call()
+      this.setState({tokenBalance: tokenBalance.toString()})
+      console.log("tokenBalance", tokenBalance.toString());
     } else {
       window.alert('Token Contract not deployed to blockchain');
     }
-    
-    
-
   }
+
+
+ 
+
+  
   async loadWeb3() {
     //Connecting app with the blockchain
     if (window.ethereum) {
@@ -56,7 +62,9 @@ class App extends Component {
     super(props);
     this.state = {
       account : '',
-      ethBalance:'0'
+      token:{},
+      tokenBalance:'0',
+      ethBalance:'0' 
     }
   }
 
